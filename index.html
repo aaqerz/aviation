@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sky, Explained</title>
+<meta name="description" content="The things you've wondered about flight, written so you actually walk away understanding them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   Tokens & Variables
+   ============================================================ */
+:root {
+  --bg: #0b0d12;
+  --bg-elevated: #10131a;
+  --surface: #13161d;
+  --hairline: #222530;
+  --hairline-soft: #1a1d25;
+  --text: #f0ebe1;
+  --text-secondary: #b8b2a5;
+  --text-muted: #8a8478;
+  --text-dim: #5a564d;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --max-width: 720px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgba(240, 235, 225, 0.025), transparent 70%),
+    radial-gradient(ellipse 80% 50% at 50% 100%, rgba(240, 235, 225, 0.015), transparent 60%);
+}
+
+::selection { background: rgba(240, 235, 225, 0.15); color: var(--text); }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 28px; }
+
+/* ============================================================
+   Hero Section
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 28px;
+  position: relative;
+}
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 56px;
+}
+.hero-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  max-width: 760px;
+  color: var(--text);
+  margin-bottom: 32px;
+}
+.hero-quote::before {
+  content: '“';
+  display: block;
+  font-size: 1.5em;
+  line-height: 0.5;
+  color: var(--text-dim);
+  margin-bottom: 0.2em;
+}
+.hero-attribution {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-attribution::before { content: ''; display: inline-block; width: 12px; height: 1px; background: var(--text-dim); }
+.hero-signature { margin-top: 48px; font-size: 13px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-secondary); }
+
+/* ============================================================
+   Index Directory Menu
+   ============================================================ */
+.index-section { padding: 64px 0 56px; border-top: 1px solid var(--hairline-soft); }
+.index-header { text-align: center; margin-bottom: 40px; }
+.index-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.index-title { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 44px); font-weight: 500; letter-spacing: -0.015em; color: var(--text); line-height: 1.2; font-style: italic; }
+.index-grid { display: flex; flex-direction: column; gap: 32px; }
+.index-part { text-align: center; }
+.index-part-numeral { font-family: var(--serif); font-size: 14px; letter-spacing: 0.4em; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.index-part-title { font-family: var(--serif); font-size: 22px; font-weight: 500; color: var(--text-secondary); margin-bottom: 12px; font-style: italic; }
+.index-equations { display: flex; flex-direction: column; gap: 8px; }
+
+.index-link {
+  font-family: var(--serif);
+  font-size: 19px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 0;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.index-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--text-secondary);
+  transform: scaleX(0);
+  transform-origin: bottom center;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.index-link:hover { color: #ffffff; }
+.index-link:hover::after { transform: scaleX(1); }
+
+/* ============================================================
+   Structural Content Architecture
+   ============================================================ */
+.intro { padding: 120px 0 80px; border-top: 1px solid var(--hairline-soft); }
+.intro-text { font-family: var(--serif); font-size: 22px; line-height: 1.6; color: var(--text-secondary); }
+.part { padding: 120px 0 80px; border-top: 1px solid var(--hairline-soft); }
+.part-header { margin-bottom: 80px; text-align: center; }
+.part-numeral { font-family: var(--serif); font-size: 14px; letter-spacing: 0.4em; color: var(--text-muted); margin-bottom: 16px; }
+.part-title { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 44px); font-weight: 500; letter-spacing: -0.015em; color: var(--text); line-height: 1.2; }
+
+.equation-block { margin-bottom: 120px; }
+.equation-block:last-child { margin-bottom: 0; }
+.equation-name { font-family: var(--sans); font-size: 12px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+.equation-title { font-family: var(--serif); font-size: 32px; font-weight: 500; margin-bottom: 12px; color: var(--text); }
+.equation-subtitle { font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--text-muted); margin-bottom: 44px; }
+.equation-body { font-size: 17px; line-height: 1.8; color: var(--text-secondary); }
+.equation-body p { margin-bottom: 1.3em; }
+.equation-body strong { color: var(--text); font-weight: 500; }
+.equation-body em { color: var(--text); font-style: italic; }
+.equation-body .lead { font-family: var(--serif); font-size: 22px; line-height: 1.55; color: var(--text); margin-bottom: 1.5em; }
+
+.equation-body .insight {
+  display: block; font-family: var(--serif); font-style: italic; font-size: clamp(21px, 3.5vw, 26px); line-height: 1.45; color: #ffffff; padding: 12px 0 12px 24px; margin: 44px 0; border-left: 2px solid var(--text-muted);
+}
+
+/* State Machine Specific Styling */
+.state-step {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.state-step h4 {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--hairline-soft);
+  padding-bottom: 8px;
+}
+.state-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  color: #ffffff;
+  font-size: 19px;
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--text-dim);
+}
+.state-step ul {
+  padding-left: 20px;
+  margin-top: 12px;
+}
+.state-step li {
+  margin-bottom: 8px;
+}
+
+/* Data Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+th {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg-elevated);
+}
+
+/* Collapsibles */
+.derivation-container { margin-top: 40px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+.derivation-toggle { padding: 20px 24px; font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); cursor: pointer; user-select: none; display: flex; justify-content: space-between; align-items: center; background: var(--surface); transition: background 0.2s; }
+.derivation-toggle::-webkit-details-marker { display: none; }
+.derivation-toggle::after { content: '+'; font-size: 16px; color: var(--text-dim); }
+.derivation-container[open] .derivation-toggle { border-bottom: 1px solid var(--hairline); color: var(--text-secondary); }
+.derivation-container[open] .derivation-toggle::after { content: '−'; }
+.derivation-content { padding: 32px 24px; background: var(--bg-elevated); font-size: 16px; }
+.derivation-content h4 { font-family: var(--sans); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text); margin: 28px 0 12px; }
+.derivation-content h4:first-child { margin-top: 0; }
+.derivation-content p { margin-bottom: 14px; color: var(--text-secondary); }
+.derivation-content .step-math { padding: 24px 0; text-align: center; font-size: 1.15em; }
+
+/* Fixed Navigation Elements */
+.back-to-home {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: rgba(19, 22, 29, 0.40);
+  border: 1px solid var(--hairline);
+  padding: 10px 16px;
+  border-radius: 40px;
+  text-decoration: none;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  z-index: 100;
+  transition: color 0.2s, border-color 0.2s;
+}
+.back-to-home .arrow {
+  display: inline-block;
+  transform: rotate(-90deg);
+  position: relative;
+  top: -2px;
+}
+.back-to-index { position: fixed; bottom: 32px; right: 32px; font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); background: rgba(19, 22, 29, 0.40); border: 1px solid var(--hairline); padding: 10px 16px; border-radius: 40px; text-decoration: none; backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); opacity: 0; pointer-events: none; z-index: 100; transition: opacity 0.4s, color 0.2s, border-color 0.2s; }
+.back-to-index.visible { opacity: 1; pointer-events: auto; }
+.back-to-home:hover, .back-to-index:hover { color: var(--text); border-color: var(--text-muted); }
+
+/* Scroll Animation classes */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 1s ease, transform 1s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Footer */
+footer { padding: 48px 0 56px; border-top: 1px solid var(--hairline-soft); text-align: center; font-size: 12px; letter-spacing: 0.08em; color: var(--text-muted); }
+footer .footer-line { margin-bottom: 8px; }
+footer .muted { color: var(--text-dim); }
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .equation-block { margin-bottom: 88px; }
+  .equation-title { font-size: 26px; }
+  .equation-subtitle { font-size: 17px; }
+  .intro-text { font-size: 19px; }
+  .part { padding: 88px 0 56px; }
+  .equation-body .insight { font-size: 21px; padding-left: 18px; margin: 36px 0; }
+  .equation-body .lead { font-size: 19px; }
+  .derivation-content { padding: 20px 14px; }
+  .derivation-content h4 { font-size: 11px; margin: 18px 0 8px; }
+  .derivation-content p { font-size: 13.5px; line-height: 1.6; margin-bottom: 10px; }
+  .state-step { padding: 16px; }
+  .state-quote { font-size: 17px; }
+  .index-section { padding: 48px 0 40px; }
+  .index-grid { gap: 24px; }
+  .index-part-title { font-size: 19px; }
+  .index-link { font-size: 17px; width: 100%; padding-left: 12px; padding-right: 12px; }
+  
+  .back-to-home, .back-to-index { bottom: 20px; padding: 8px 14px; font-size: 10px; }
+  .back-to-home { left: 20px; }
+  .back-to-index { right: 20px; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-eyebrow">A Curious Person's Guide</div>
+  <div class="hero-quote">Once you have tasted flight, you will forever walk the earth with your eyes turned skyward, for there you have been, and there you will forever long to return.</div>
+  <div class="hero-attribution">Leonardo da Vinci</div>
+  <div class="hero-signature">Aaqhil Hussain</div>
+</section>
+
+<section class="index-section" id="index">
+  <div class="container">
+    <div class="index-header">
+      <div class="index-eyebrow">Index</div>
+      <h2 class="index-title">The Sky, Explained</h2>
+    </div>
+
+    <div class="index-grid">
+      <div class="index-part">
+        <div class="index-part-numeral">I</div>
+        <div class="index-part-title">How We Learned to Fly</div>
+        <div class="index-equations">
+          <a class="index-link" href="#cradle">1903: The Wright Brothers' Real Breakthrough</a>
+          <a class="index-link" href="#monocoque">1914 to 1939: Metal Skin and the First Invisible Roads</a>
+          <a class="index-link" href="#gas-turbine">1939 to 1960s: Why Jets Replaced Propellers</a>
+          <a class="index-link" href="#automation">1960s to 1990s: The Sky Gets Crowded</a>
+          <a class="index-link" href="#fly-by-wire">2000s to Present: When Computers Took the Stick</a>
+        </div>
+      </div>
+
+      <div class="index-part">
+        <div class="index-part-numeral">II</div>
+        <div class="index-part-title">The Geometry of the Airport</div>
+        <div class="index-equations">
+          <a class="index-link" href="#runway-numbers">Why Runways Have Numbers (and Why They Sometimes Change)</a>
+          <a class="index-link" href="#traffic-pattern">The Traffic Pattern: How Pilots Queue in the Sky</a>
+        </div>
+      </div>
+
+      <div class="index-part">
+        <div class="index-part-numeral">III</div>
+        <div class="index-part-title">What's Actually Inside a Modern Plane</div>
+        <div class="index-equations">
+          <a class="index-link" href="#nav-data">The Flying Data Centre</a>
+          <a class="index-link" href="#sensor-fusion">How a Plane Knows Where It Is</a>
+          <a class="index-link" href="#datalink">How Pilots Text Air Traffic Control</a>
+          <a class="index-link" href="#surveillance">Why Your Plane Tells Everyone Where It Is</a>
+          <a class="index-link" href="#glass-cockpit">The Cockpit: Where the Buttons Went</a>
+        </div>
+      </div>
+
+      <div class="index-part">
+        <div class="index-part-numeral">IV</div>
+        <div class="index-part-title">A Flight, From Parked to Parked</div>
+        <div class="index-equations">
+          <a class="index-link" href="#state-machine">The Seven Phases of a Commercial Flight</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="container">
+    <div class="intro-text">
+      <p>Most of us have been on a plane. Almost none of us understand what is actually happening when we are.</p>
+      <p>This page is for the curious passenger. The one who stares out the window at 38,000 feet and wonders how the little aluminium tube is staying up, why the runway has numbers on it, what the pilots are saying on that crackling radio, and whether anyone is actually flying the plane.</p>
+      <p>No prior knowledge is assumed. We build every idea from the ground up.</p>
+    </div>
+  </div>
+</section>
+
+<section class="part">
+  <div class="container">
+    <div class="part-header">
+      <div class="part-numeral">I</div>
+      <h2 class="part-title">How We Learned to Fly</h2>
+    </div>
+
+    <article class="equation-block reveal" id="cradle">
+      <div class="equation-name">1903</div>
+      <h3 class="equation-title">The Wright Brothers' Real Breakthrough</h3>
+      <p class="equation-subtitle">It wasn't lift. Everyone before them already had lift.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Here's something that surprises most people. By 1903, plenty of inventors had built machines that could lift off the ground. Hot air balloons had been around since 1783. Gliders had been flying for decades. The problem was that none of them could be steered.</p>
+        <p>They went up, the wind decided where they went next, and the pilot just held on hoping for a soft landing. Flight was a hazard, not a skill.</p>
+        <p>The Wright Brothers solved a different problem entirely. They figured out how to make an aircraft obey the pilot in three dimensions, the same way a bicycle obeys a cyclist. That insight is what made aviation possible. Lift was never the bottleneck. Control was.</p>
+        
+        <span class="insight">Before the Wrights, flight was floating. After the Wrights, flight was steering.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">How They Actually Did It</summary>
+          <div class="derivation-content">
+            <h4>1. The Three Ways a Plane Can Move</h4>
+            <p>An aircraft in the air can rotate in three completely independent ways. Imagine you're holding a model plane in your hand. You can tilt the nose up and down. You can roll the wings so one drops and the other rises. And you can swivel the nose left or right like turning a doorknob.</p>
+            <p>These three motions have proper names that you'll hear pilots use:</p>
+            <ul>
+                <li><strong>Pitch</strong> is nose up and down. Controlled by a small flap at the tail called the elevator.</li>
+                <li><strong>Roll</strong> is tilting the wings. Controlled by flaps on the wings called ailerons.</li>
+                <li><strong>Yaw</strong> is swivelling the nose left or right. Controlled by a vertical flap at the tail called the rudder.</li>
+            </ul>
+            <p>Before the Wrights, most attempts at flight had crude versions of one or two of these. None had all three working together. That's the gap they closed.</p>
+            
+            <h4>2. The Trick Nobody Else Spotted</h4>
+            <p>Here's where it gets clever. If you want to turn the plane right, you might think you'd just push the rudder to swivel the nose right. That doesn't work. The plane would skid sideways like a car on ice, losing altitude the whole way.</p>
+            <p>What actually has to happen is closer to how a bicycle turns. You lean into the turn. So to turn right, the pilot first rolls the aircraft so the right wing drops. Gravity then pulls the plane sideways into a curving path. The rudder is only there to keep the nose pointed in the direction of travel during the turn, not to drive the turn itself.</p>
+            <p>The Wrights were the first to figure out that flight needed all three controls coordinated together. Roll the wings to lean into the turn. Pull back slightly on the elevator because the lift now has to support both weight and centripetal pull. Tap the rudder to keep the nose aligned. Three hands, three controls, one smooth turn.</p>
+            <p>That choreography is still how every aircraft on Earth turns today. From a tiny Cessna to a Boeing 787. Same three controls, same coordination.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="monocoque">
+      <div class="equation-name">1914 to 1939</div>
+      <h3 class="equation-title">Metal Skin and the First Invisible Roads</h3>
+      <p class="equation-subtitle">Two breakthroughs in the same generation. One made planes stronger, the other made them navigable.</p>
+      
+      <div class="equation-body">
+        <p class="lead">If you look at a 1910 aircraft, it looks like a kite. Wooden frame, fabric stretched over it, exposed wires and struts everywhere. By 1939 aircraft looked like polished aluminium bullets. What happened in between is one of the most violent engineering accelerations in human history, and most of it was driven by two world wars.</p>
+        <p>But two specific ideas from this era still define every aircraft you fly on today. The first changed how planes were built. The second changed how they navigated.</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Two Big Ideas</summary>
+          <div class="derivation-content">
+            <h4>1. Why Modern Planes Look Like Smooth Tubes</h4>
+            <p>An early aircraft had its strength on the inside. A skeleton of wooden beams criss-crossed inside the fuselage to handle the bending and twisting forces of flight. The outer fabric was just a windbreak. Pretty, but structurally useless.</p>
+            <p>Then engineers had a smarter idea. What if the outer shell did the structural work? Imagine the difference between a banana (soft outside, no rigid frame) and an egg (hard outside, hollow inside). The egg is dramatically stronger for its weight because the load is spread across its entire surface, not concentrated in internal beams.</p>
+            <p>That's a monocoque design. The outer aluminium skin carries the load. The interior is mostly empty space for passengers and fuel. Aircraft became significantly lighter, stronger, and faster overnight. The catch is that any damage to the skin is now also damage to the structure, which is why aircraft maintenance is obsessive about even tiny dents and scratches.</p>
+            
+            <h4>2. How Pilots Navigated Before GPS</h4>
+            <p>For the first thirty years of aviation, pilots navigated by looking out the window. They followed roads, rivers, and railway lines. This worked beautifully on a clear day, and completely failed the moment a cloud got in the way.</p>
+            <p>The solution was radio beacons. Engineers built radio transmitters on the ground that broadcast a continuous signal in all directions, like a lighthouse but invisible. The aircraft carried a special antenna that could detect which direction the signal was coming from. The pilot would tune in to a beacon, see which way the needle pointed, and fly toward it.</p>
+            <p>Once you reached that beacon, you tuned in to the next one further along your route. Hop, hop, hop, you could string together a path across an entire country, even in complete cloud cover. This was the birth of Instrument Flight Rules, which is what every commercial flight today still operates under. The beacons have been replaced by satellites, but the principle is identical. Fly from one known invisible point to the next.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="gas-turbine">
+      <div class="equation-name">1939 to 1960s</div>
+      <h3 class="equation-title">Why Jets Replaced Propellers</h3>
+      <p class="equation-subtitle">There's a hard physical reason propellers can never make a plane go fast.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Propellers seem like such a simple, obvious way to push a plane forward. Spin a fan, the fan grabs air, air gets pushed back, plane moves forward. Why on Earth would we abandon that for something as complicated as a jet engine?</p>
+        <p>The answer is one of those wonderful physics traps. The faster a plane flies, the faster its propeller has to spin. And when the tips of the propeller blades start approaching the speed of sound, terrible things happen.</p>
+        
+        <span class="insight">Around 400 knots of airspeed, the tips of a propeller hit the speed of sound. The blade stops working. Not because of mechanical failure. Because of physics.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Physics Behind the Switch</summary>
+          <div class="derivation-content">
+            <h4>1. Why Propeller Tips Fail at High Speed</h4>
+            <p>A propeller blade is essentially a small spinning wing. The tip of the blade is moving much faster than the part near the centre, because it has to sweep through a much bigger circle in the same amount of time. So even if the plane itself is only going 400 knots, the tip of the spinning propeller could be moving at 700 knots or more relative to the air.</p>
+            <p>When anything approaches the speed of sound, the air in front of it can't get out of the way fast enough. It piles up into a shockwave. For a propeller blade, this means the air around the tip stops behaving like smooth flowing air and becomes a chaotic mess. The blade loses its ability to generate thrust, vibrates violently, and eats fuel without producing useful work.</p>
+            <p>This is the speed wall propellers cannot cross. You can build a bigger propeller, but the tip still hits the sound barrier. You can spin it faster, same problem. The blade is the bottleneck.</p>
+            
+            <h4>2. How a Jet Engine Solves It</h4>
+            <p>A jet engine sidesteps the problem entirely. There are no blades cutting through fast-moving outside air. Instead, the engine sucks air into a chamber, squeezes it under enormous pressure, sets it on fire, and lets the burning gas shoot out the back. The plane is pushed forward by Newton's third law. Throw something backward hard enough, you go forward.</p>
+            <p>Pilots have a charming phrase for this. Suck, squeeze, bang, blow. The air gets sucked in, squeezed by spinning compressor wheels, banged in the combustion chamber, then blown out the back. All four things are happening continuously at different points in the engine, not in a stop-start cycle like a car engine.</p>
+            
+            <h4>3. The Plot Twist: Modern Jets Are Mostly Propellers Again</h4>
+            <p>Here's something funny. The big front fan you can see when you peek into a modern jet engine is doing almost the same job as a propeller. It moves a huge mass of cold air around the outside of the actual combustion core.</p>
+            <p>On a modern engine, around 80 percent of the air the fan moves bypasses the burning core entirely. That cold bypass air does most of the work pushing the plane forward. The hot exhaust from the core is almost an afterthought. This is called a high-bypass turbofan, and it's the dominant design on every airliner since the 1970s. It's far more fuel-efficient than a pure jet, and significantly quieter.</p>
+            <p>So we went from propellers, to pure jets, back to giant fans wrapped around small jets. The propeller was right all along, it just needed a clever way to deal with the speed-of-sound problem.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="automation">
+      <div class="equation-name">1960s to 1990s</div>
+      <h3 class="equation-title">The Sky Gets Crowded</h3>
+      <p class="equation-subtitle">When everyone could afford to fly, the air had to get organised.</p>
+      
+      <div class="equation-body">
+        <p class="lead">In 1960, a plane ticket cost a small fortune. Air travel was for businessmen and celebrities. Then the Boeing 747 arrived in 1970 and everything changed. Suddenly you could put 400 people on a plane instead of 100. The cost per passenger plummeted. Holiday flights, family visits abroad, the entire idea of mass air travel was born here.</p>
+        <p>But there was a problem. If you fill the sky with thousands of planes, how do you stop them from running into each other? Especially near airports, where everyone is trying to land in roughly the same place at the same time?</p>
+        <p>The answer was infrastructure. Air traffic control got more sophisticated. Radar coverage expanded. And one specific invention made it possible for a plane to land safely in zero visibility, every single time, with no human guesswork involved.</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Invisible Glide Path</summary>
+          <div class="derivation-content">
+            <h4>1. The Problem With Landing in Fog</h4>
+            <p>Imagine you're a pilot in 1955. You're approaching the runway, but you can't see it because the airport is buried in cloud. How do you find it? You'd have to guess your descent rate, your distance from the runway, and your alignment with it. Get any of those wrong and you crash into the ground, or worse, miss the runway entirely and run out of fuel circling.</p>
+            <p>For decades, the answer was simply to not fly in bad weather. Flights were cancelled or diverted constantly. As air travel exploded, this became unworkable.</p>
+            
+            <h4>2. The Instrument Landing System</h4>
+            <p>The solution was two radio beams aimed up from the runway, working together to form an invisible 3D pathway.</p>
+            <ul>
+              <li>One beam, called the <strong>localiser</strong>, runs straight down the centreline of the runway. The aircraft's instruments tell the pilot whether they're left, right, or perfectly centred on this beam.</li>
+              <li>The other beam, called the <strong>glideslope</strong>, slopes up from the runway at a 3 degree angle. This tells the pilot whether they're too high, too low, or perfectly on the descent path.</li>
+            </ul>
+            <p>Put them together and you get a tube in the sky leading right to the touchdown zone. The pilot's job is to fly the aircraft so both needles stay centred. Do that, and you will land safely on the runway, even if you can't see the ground until you're 30 metres above it.</p>
+            <p>This is still the system used at every major airport on Earth. When you land in heavy fog or rain and wonder how on Earth the pilot found the runway, this is the answer. They followed two invisible radio beams down a 3 degree slope to the asphalt.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="fly-by-wire">
+      <div class="equation-name">2000s to Present</div>
+      <h3 class="equation-title">When Computers Took the Stick</h3>
+      <p class="equation-subtitle">On a modern airliner, the pilot is not really flying the plane. They're suggesting things to a computer that is.</p>
+      
+      <div class="equation-body">
+        <p class="lead">For most of aviation history, a pilot moving the control stick was physically pulling on cables that moved flaps on the wings. Steel wires ran the length of the aircraft, connecting the pilot's hands to the surfaces that steered the plane. Brute mechanical engineering, no different in principle from a bicycle's brake cable.</p>
+        <p>Modern airliners don't work that way anymore. When the pilot moves the stick, nothing physical happens. The stick sends an electrical signal to a computer. The computer decides what the aircraft should do, and then sends its own electrical signals to motors that move the wings. The pilot is asking. The computer is doing.</p>
+        
+        <span class="insight">When you fly on a modern Airbus, the pilot's stick is more like a video game controller than a steering wheel. It's a suggestion to a computer, not a command to a flap.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">Why This Matters</summary>
+          <div class="derivation-content">
+            <h4>1. Modern Aircraft Are Intentionally Unstable</h4>
+            <p>Here's something most passengers never think about. A traditional aircraft is designed to be stable. If you let go of the controls, it will tend to fly straight and level on its own. Like a well-balanced bicycle, it wants to stay upright.</p>
+            <p>Modern airliners are deliberately designed the opposite way. They're slightly unstable. Without constant correction, they would wander off course and start to tumble within seconds. Why on Earth would engineers design something like that?</p>
+            <p>Because instability saves fuel. A stable aircraft is constantly fighting against itself, with the tail pushing down to balance the nose pushing up. All that fighting creates drag, and drag burns fuel. An unstable aircraft has none of that internal friction, so it slips through the air more efficiently.</p>
+            <p>The trade-off is that it now needs to be flown actively every single millisecond. No human could do this. Computers can, easily.</p>
+            
+            <h4>2. The Computer Won't Let You Crash</h4>
+            <p>The computers do more than just stabilise. They actively refuse to let the pilot do something dangerous. If the pilot tries to pull the nose up too steeply and stall the aircraft, the computer simply won't let them. If they try to bank the wings beyond a safe angle, the computer holds them at the limit. If they try to dive faster than the airframe can handle, the computer prevents it.</p>
+            <p>This is called flight envelope protection, and it's the silent reason modern aviation has become so extraordinarily safe. The computer is the last line of defence against pilot error, exhaustion, distraction, or panic.</p>
+            
+            <h4>3. Three Computers Watching Each Other</h4>
+            <p>Of course, computers can fail too. So every modern airliner has three or four flight control computers running simultaneously. They're often built by different teams, written in different programming languages, and running on different hardware. Each one calculates what the aircraft should do, and then they vote.</p>
+            <p>If two computers agree and one disagrees, the disagreer is overruled. If they all disagree with each other, there are backup procedures and manual reversion modes. The assumption is that any single computer could be wrong at any moment, so no single computer is ever trusted alone.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="part">
+  <div class="container">
+    <div class="part-header">
+      <div class="part-numeral">II</div>
+      <h2 class="part-title">The Geometry of the Airport</h2>
+    </div>
+
+    <article class="equation-block reveal" id="runway-numbers">
+      <div class="equation-name">Runway Numbering</div>
+      <h3 class="equation-title">Why Runways Have Numbers</h3>
+      <p class="equation-subtitle">Look out the window during landing. There's a giant number painted on the asphalt. It's not random.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Next time you fly, look down as the plane is about to touch the runway. You'll see a big number painted near the threshold. Maybe a 16. Maybe a 34. Maybe a 27L. Most passengers assume it's just the runway's name, like a building number. It isn't.</p>
+        <p>The number is actually telling the pilot which direction they're pointing. It's a compass bearing, rounded off and squeezed into two digits. Once you understand the trick, you can decode any runway anywhere in the world in your head.</p>
+        
+        <span class="insight">A runway numbered 16 means you're flying in the direction of 160 degrees on a compass. Drop the last zero, and you have the runway name.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">How the Numbering Works</summary>
+          <div class="derivation-content">
+            <h4>1. Compass Headings, Simplified</h4>
+            <p>Imagine standing on a giant compass painted on the ground. North is 0 degrees (or 360, same direction). East is 90. South is 180. West is 270. A heading of 045 would be northeast. A heading of 225 would be southwest.</p>
+            <p>Every direction on Earth can be described by a number between 0 and 360. Pilots have used these compass bearings for over a hundred years to describe which way they're flying.</p>
+            
+            <h4>2. The Runway Name Is the Bearing Divided by Ten</h4>
+            <p>A runway is just a long strip of asphalt pointing in some direction. Engineers measure that direction in compass degrees and then write it on the runway, dropping the last digit to keep things short.</p>
+            <p>So a runway pointing roughly south (180 degrees) is named "Runway 18". A runway pointing roughly northwest (315 degrees) is named "Runway 31" (the 5 gets rounded off). A runway pointing due east (090 degrees) is named "Runway 9".</p>
+            <p>If you're a pilot taxiing toward Runway 27, before you even glance at your instruments you know you're about to take off heading west. The number tells you the direction.</p>
+            
+            <h4>3. Why Every Runway Has Two Numbers</h4>
+            <p>Here's a fun detail. A runway is a strip you can use in either direction depending on which way the wind is blowing. Pilots always prefer to land into the wind because it slows the aircraft down relative to the ground, shortening the landing distance.</p>
+            <p>So the same physical strip of asphalt gets two names. If you take off heading 180 degrees, you call it Runway 18. If you take off in the opposite direction on the same strip, you're heading 360 degrees, so you call it Runway 36. The two numbers on any runway always differ by 18 (180 degrees).</p>
+            <p>Look at any airport map and you'll see runway labels like "16/34" or "09/27" or "04/22". Same strip, two names, one for each direction of use.</p>
+            
+            <h4>4. The L, R, and C Suffixes</h4>
+            <p>Big international airports often have parallel runways. Two long strips running in the same direction, side by side, so planes can land or take off at the same time. They obviously can't share a name.</p>
+            <p>So they get suffixed. L for Left, R for Right, and at airports with three parallels, C for Centre. Sydney has 16L and 16R. Los Angeles has 24L, 24R, 25L, and 25R (the second pair points in a slightly different direction).</p>
+            
+            <h4>5. Why Runways Sometimes Get Renamed</h4>
+            <p>Here's the most beautiful detail of the whole system. The Earth's magnetic field is not fixed. The magnetic north pole drifts a tiny amount every year, moving slowly across the Arctic Ocean as currents shift inside the molten iron core of the planet.</p>
+            <p>Over decades, this drift accumulates. Eventually a runway that was named in the 1970s might no longer be pointing at exactly the direction its number says. When the drift exceeds a few degrees, the runway has to be renamed. Crews come out, sandblast off the old number, and paint a new one a digit higher or lower.</p>
+            <p>Tampa International had its runways renamed in 2011. Fairbanks did it in 2009. Stansted in 2009. The asphalt didn't move. The Earth did.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="traffic-pattern">
+      <div class="equation-name">Traffic Pattern</div>
+      <h3 class="equation-title">The Traffic Pattern: How Pilots Queue in the Sky</h3>
+      <p class="equation-subtitle">There's an invisible rectangle around every small airport. Every pilot flies the same shape, every time.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Imagine you're at a small regional airport with no air traffic controller. Maybe five planes want to land in the next ten minutes, and three want to take off. How do you stop them from running into each other?</p>
+        <p>The answer is an unwritten agreement that every pilot in the world follows. You don't just fly straight at the runway and land. You join a specific rectangular pattern around the airport, follow it in a predictable direction, and slot yourself into the queue. Anyone watching from the ground can tell exactly where you are in the sequence just by looking at your shape in the sky.</p>
+        <p>The pattern has four sides, and each one has a name.</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Four Legs of the Pattern</summary>
+          <div class="derivation-content">
+            <h4>1. Upwind</h4>
+            <p>The upwind leg is the takeoff leg. You roll down the runway, lift off, and climb straight ahead in the direction of the runway. This is the first side of the rectangle. You're climbing into the wind, which is why it's called upwind.</p>
+            
+            <h4>2. Crosswind</h4>
+            <p>Once you've climbed to a safe altitude, you make a 90 degree turn. You're now flying perpendicular to the runway, crossing the wind rather than going into or with it. This is the short side at the far end of the rectangle.</p>
+            
+            <h4>3. Downwind</h4>
+            <p>Another 90 degree turn, and you're now flying parallel to the runway but in the opposite direction to your takeoff. The wind is now at your back, blowing you along. This is the long side of the rectangle, on the opposite side of the runway from where you started.</p>
+            <p>Downwind is where most of the work happens. The pilot lowers landing gear, slows the aircraft down, runs through the pre-landing checklist, and looks down to spot the runway through the side window.</p>
+            
+            <h4>4. Base</h4>
+            <p>Another 90 degree turn. You're now flying perpendicular to the runway again, descending and slowing, lined up to make the final turn toward the runway. This is the second short side of the rectangle, opposite to crosswind.</p>
+            
+            <h4>5. Final</h4>
+            <p>The last 90 degree turn lines you up with the runway, pointing directly at it. You're now on final approach. From here it's a straight descent to the touchdown zone.</p>
+            
+            <h4>6. Why This Specific Shape</h4>
+            <p>The rectangle works because every pilot can see every other pilot in the pattern. From downwind you can see anyone on base. From base you can see anyone on final. The geometry naturally creates orderly spacing, like cars merging onto a highway.</p>
+            <p>It also gives every pilot multiple opportunities to bail out. If you're not stable on final, you can climb back up and re-enter the pattern. If someone cuts in front of you on base, you can extend your downwind leg to give them room. The rectangle has flex built into it.</p>
+            
+            <h4>7. Left Turns by Default</h4>
+            <p>Standard pattern direction is left turns. Upwind, crosswind, downwind, base, final, all using 90 degree left turns. The reason is purely practical. In a small aircraft, the pilot sits on the left. Looking out the left window gives the best view down at the runway throughout the pattern.</p>
+            <p>Right hand patterns exist too, usually because of terrain, noise restrictions, or another airport's airspace nearby. But left is the default everywhere.</p>
+            
+            <h4>8. What This Looks Like From the Ground</h4>
+            <p>If you ever drive past a small regional airport on a clear day, look up. You'll often see a single small plane carving out a perfect rectangle in the sky. It will fly straight, turn left, fly straight, turn left, descend, turn left, line up, and land. Five minutes later, it'll take off and do it all again. Touch and go practice. Every student pilot in the world spends dozens of hours doing exactly this shape, over and over, until the rectangle is muscle memory.</p>
+            <p>The traffic pattern is one of the few things in aviation that requires no radios, no instruments, no air traffic control. Just shape, sequence, and shared agreement.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="part">
+  <div class="container">
+    <div class="part-header">
+      <div class="part-numeral">III</div>
+      <h2 class="part-title">What's Actually Inside a Modern Plane</h2>
+    </div>
+
+    <article class="equation-block reveal" id="nav-data">
+      <div class="equation-name">The Flying Data Centre</div>
+      <h3 class="equation-title">The Flying Data Centre</h3>
+      <p class="equation-subtitle">A 21st century airliner has more computers than most office buildings. Here's what they're all doing.</p>
+      
+      <div class="equation-body">
+        <p class="lead">When you board a Boeing 787 or Airbus A350, you're stepping inside a machine with roughly 100 million lines of computer code running across hundreds of processors. The aeroplane is, in a very real sense, a flying data centre with seats.</p>
+        <p>So what's all that computing for? Two things mainly. Knowing exactly where the aircraft is, and exactly what every part of it is doing, every second of the flight.</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">How It All Connects</summary>
+          <div class="derivation-content">
+            <h4>1. The Wires That Carry Everything</h4>
+            <p>Imagine the aircraft's nervous system. Sensors all over the airframe constantly measure things. Engine temperature, fuel level, control surface position, cabin pressure, outside air temperature, wing flex, brake wear. There are thousands of these data points, and they all need to reach the cockpit computers in real time.</p>
+            <p>Older aircraft used a system where each sensor had its own dedicated wire running to the cockpit. Simple and reliable, but heavy and inflexible. Modern aircraft use a shared network instead. Sensors broadcast their readings onto a common cable, and any computer that needs that data picks it up.</p>
+            <p>The trick is that aviation can't tolerate delayed data. If the autopilot asks for the current bank angle and the answer arrives a fraction of a second late, the aircraft is no longer where the autopilot thinks it is. So the cables are engineered to guarantee delivery times within microseconds. There's no buffering, no congestion, no maybe-it'll-get-there. The aircraft's network is more like a Swiss train timetable than a public road.</p>
+            
+            <h4>2. The Three Things the Aircraft Has to Know About Itself</h4>
+            <p>Three sensor systems together tell the aircraft where it is and what it's doing.</p>
+            <p>The first is the inertial reference system. Tiny laser-based sensors inside the aircraft measure every tilt, turn, and acceleration. By doing constant maths on those motions, the aircraft can work out where it has moved since it last knew where it was. Like keeping track of your position in a dark room by carefully counting your steps.</p>
+            <p>The second is GPS. The same satellite signals your phone uses, but with more sensitive receivers and stricter accuracy requirements.</p>
+            <p>The third is the air data computer. It reads outside air pressure to calculate altitude (the higher you go, the thinner the air), and the pressure difference between still air and air rushing into a forward-facing tube to calculate airspeed. Same principle as the speedometer on a sailing boat.</p>
+            <p>The next section explains why no single one of these is good enough on its own, and how the aircraft blends them together.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="sensor-fusion">
+      <div class="equation-name">Knowing Where You Are</div>
+      <h3 class="equation-title">How a Plane Knows Where It Is</h3>
+      <p class="equation-subtitle">Two flawed sensors, blended together, become one almost-perfect answer.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Here's a puzzle. Imagine you're flying from Sydney to Los Angeles. That's 14 hours over open ocean, with no roads, no landmarks, and (for much of the route) no radar coverage. How does the pilot know exactly where the plane is, every second of those 14 hours?</p>
+        <p>The honest answer is that no single sensor on the aircraft is good enough on its own. The clever answer is that the aircraft combines two flawed sensors, and the blend is dramatically better than either one alone.</p>
+        
+        <span class="insight">One sensor knows where you are very precisely for a short time. The other knows where you are forever, but only when it has a signal. The aircraft uses both, and trusts neither alone.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">Why You Need Both</summary>
+          <div class="derivation-content">
+            <h4>1. The Inertial System Drifts</h4>
+            <p>The aircraft's inertial reference system works by very precisely measuring how the aircraft accelerates and tilts, then doing maths to work out where it must have ended up. It's a beautiful, self-contained system. Doesn't need any outside signal. Can't be jammed.</p>
+            <p>But it has one weakness. Tiny measurement errors compound over time. If the sensor is off by an absolutely tiny amount in one second, that error grows in the next second, and the next. After an hour of flight, the inertial system's idea of where the aircraft is might be a couple of kilometres off from where it actually is. After 14 hours, the error could be 50 kilometres. That's fine when you're 38,000 feet up in the middle of nowhere. It's dangerous when you're trying to find the runway.</p>
+            
+            <h4>2. GPS Doesn't Drift, But It Can Vanish</h4>
+            <p>GPS has the opposite problem. It triangulates your position using signals from satellites in orbit, so its accuracy doesn't degrade over time. You're exactly where the satellites say you are, period.</p>
+            <p>But GPS depends on a working signal. If something blocks the signal (a banking turn, dense forest, deliberate jamming over a war zone), the aircraft suddenly has no idea where it is at all. The system goes from perfect to blind in a single second.</p>
+            
+            <h4>3. The Trick: Trust Neither, Use Both</h4>
+            <p>Modern aircraft run a clever piece of maths called a Kalman filter. Imagine two people in a car. One has a watch and is counting how long since you started, multiplied by your speed, to estimate distance travelled. The other looks out the window every minute and reads the road signs.</p>
+            <p>Each one alone would be useless. The watch-and-speed person drifts off course because they can't account for traffic. The road-sign person has gaps when there are no signs. But together? You constantly cross-check. The watch-person gives you continuous estimates. The road-sign person snaps you back to reality each time a sign appears, and resets the watch-person's accumulating error.</p>
+            <p>That's exactly what the aircraft is doing with the inertial system and GPS, except the maths is done thousands of times per second. The result is a position fix that is both smooth (no gaps) and accurate (no drift). Neither sensor is trusted alone. The blend is.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="datalink">
+      <div class="equation-name">Pilots Text Too</div>
+      <h3 class="equation-title">How Pilots Text Air Traffic Control</h3>
+      <p class="equation-subtitle">Voice radio is crackly, busy, and easy to mishear. So pilots also have a parallel text messaging system.</p>
+      
+      <div class="equation-body">
+        <p class="lead">You've probably heard pilots talking to air traffic control on the radio in movies. Crisp, fast, structured speech. "Tower, Qantas 413, ready for departure runway 16." It's a beautiful language, but it has problems.</p>
+        <p>Over oceans there are no radar stations and no nearby radio towers. The pilot has to use long-range HF radio, which sounds like a 1940s war film. Crackly, distant, easy to mishear. And on busy frequencies near major airports, the controller is talking to twenty aircraft at once. Wait your turn, speak quickly, hope you got the instruction right.</p>
+        <p>So modern aviation has added a second layer of communication entirely. Pilots can now text air traffic control.</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Two Texting Systems</summary>
+          <div class="derivation-content">
+            <h4>1. The Plane Texts the Airline</h4>
+            <p>The first system is called ACARS, and it lets the aircraft send short text messages to the airline's operations centre on the ground. Think of it as SMS for aeroplanes.</p>
+            <p>The plane sends automated reports constantly. Engine performance, fuel levels, position updates, maintenance fault codes. When you land at Sydney and a hydraulic pump is starting to fail, the spare part is already waiting at the gate. The plane texted ahead three hours ago.</p>
+            <p>The pilots also use it for human messages. Asking for updated weather at the destination. Sending a request for the cabin crew to have extra meals loaded. Coordinating with maintenance about an odd noise. It's the aircraft's instant messenger.</p>
+            
+            <h4>2. The Pilot Texts the Controller</h4>
+            <p>The second system, called CPDLC, lets the pilot exchange messages directly with air traffic control. Instead of a crackling voice instruction over HF, the controller types "Climb and maintain flight level 360" and the message appears on the cockpit screen. The pilot taps a button to acknowledge.</p>
+            <p>This is especially powerful over oceans, where voice radio is unreliable. There's no "say again, you're breaking up" because the message is text. There's no phonetic confusion between similar-sounding callsigns. Everything is logged, timestamped, and unambiguous.</p>
+            
+            <h4>3. Why You Can Fit More Planes in the Sky Now</h4>
+            <p>Here's a lovely consequence. The North Atlantic is one of the busiest stretches of airspace in the world, with hundreds of aircraft flying between Europe and North America each day. For decades, air traffic control had to keep planes spaced 100 kilometres apart laterally, just because voice radio was too slow and error-prone to manage them any closer together.</p>
+            <p>With reliable text messaging, that spacing has shrunk to 30 kilometres. Three times as many aircraft can use the same sky. Same controllers, same airspace, just better communication. That's why crossing the Atlantic is so much more available and affordable now than it was 30 years ago.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="surveillance">
+      <div class="equation-name">The Self-Reporting Sky</div>
+      <h3 class="equation-title">Why Your Plane Tells Everyone Where It Is</h3>
+      <p class="equation-subtitle">The reason Flightradar24 exists. And the reason planes don't run into each other.</p>
+      
+      <div class="equation-body">
+        <p class="lead">If you've ever opened Flightradar24 on your phone, you've seen something amazing. Every commercial aircraft in the sky, in real time, displayed on a map. You can tap on any of them and see the flight number, altitude, speed, route, and aircraft type. How is that possible?</p>
+        <p>The answer is one of the most elegant ideas in modern aviation. Every aircraft is constantly shouting its own position to anyone who can hear. The shouts are picked up by ground stations, satellites, and other aircraft. Flightradar24 is just collecting those shouts and putting them on a map.</p>
+        
+        <span class="insight">In the old days, radar bounced signals off planes to find them. Now planes broadcast their own position once per second. The sky watches itself.</span>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">How the System Actually Works</summary>
+          <div class="derivation-content">
+            <h4>1. Every Plane Has a Loud Mouth</h4>
+            <p>Every modern aircraft has a transponder, which is a small radio that constantly broadcasts the aircraft's identity, GPS position, altitude, and speed. Roughly once per second, that broadcast goes out on a specific radio frequency that anyone can listen to.</p>
+            <p>The system is called ADS-B. Ground stations all over the world listen for these broadcasts and feed the data to air traffic control. Satellites in orbit listen too, which is how planes are tracked even over the middle of the Pacific where there are no ground stations.</p>
+            <p>And anyone else can listen. That's how Flightradar24 works. They have a worldwide network of volunteers running small ADS-B receivers in their homes, all feeding data to a central server. There's no secret data feed, no special access. Anyone with a 30 dollar antenna can pick up these broadcasts from aircraft passing overhead.</p>
+            
+            <h4>2. The Plane That Refuses to Crash Into You</h4>
+            <p>Now imagine you're a pilot. Your aircraft is listening to every other aircraft nearby, because they're all broadcasting their positions. Your onboard computer is constantly doing maths to figure out if any of them are going to be in the same piece of sky as you, at the same time.</p>
+            <p>If two aircraft are heading for a collision, the system kicks in. It's called TCAS. A loud voice in both cockpits announces "TRAFFIC, TRAFFIC". A few seconds later, if the threat is still developing, both aircraft get instructions. One is told to climb. The other is told to descend. The pilots have five seconds to obey, and they must, even if air traffic control is saying something different at the same time.</p>
+            <p>The beautiful thing is that the two aircraft coordinate this automatically through their transponders, so they never tell both pilots to climb. The system picks an unambiguous safe outcome and forces it on everyone involved.</p>
+            
+            <h4>3. Why the Layers Matter</h4>
+            <p>Aircraft don't depend on any one of these systems alone. Air traffic control provides the main separation. ADS-B provides the position-sharing layer. TCAS provides the last-second mechanical override. Each layer assumes the one above it can fail, and is designed to catch the consequences when it does.</p>
+            <p>This is why modern aviation is statistically the safest mode of transport ever invented. There are about four layers of redundancy between you and a midair collision, and any one of them is normally enough on its own.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <article class="equation-block reveal" id="glass-cockpit">
+      <div class="equation-name">Inside the Cockpit</div>
+      <h3 class="equation-title">The Cockpit: Where the Buttons Went</h3>
+      <p class="equation-subtitle">Old cockpits had hundreds of gauges. Modern ones have a few big screens. What happened?</p>
+      
+      <div class="equation-body">
+        <p class="lead">If you've ever seen a photo of a 1960s airliner cockpit, you've seen the chaos. Hundreds of round mechanical dials, switches, and warning lights, packed wall to wall around the pilots. Every single one of them was its own physical instrument, with a needle driven by its own sensor.</p>
+        <p>A modern airliner cockpit has six or so flat LCD screens, plus a small number of physical controls. All the information from those hundreds of old dials is now drawn on the screens by computers. So what's actually on each screen?</p>
+        
+        <details class="derivation-container">
+          <summary class="derivation-toggle">The Five Main Displays</summary>
+          <div class="derivation-content">
+            <h4>1. The Most Important Screen</h4>
+            <p>Right in front of each pilot is the primary flight display. This is the one screen they absolutely cannot lose. It shows the basics. How fast the aircraft is going, how high it is, which way it's pointing, and most importantly, whether the wings are level or tilted.</p>
+            <p>The centre of this display is an artificial horizon, a little graphic showing blue sky above a brown ground line. As the aircraft banks, the horizon tilts in the opposite direction, just like the real horizon looks through the windows. This is how pilots fly when they can't see outside, in clouds or at night.</p>
+            
+            <h4>2. The Map</h4>
+            <p>Next to the primary flight display is the navigation display. This is a moving map showing the aircraft's position, the route ahead, weather radar returns shown as coloured blobs (green for light rain, red for severe storms), terrain warnings if there's a mountain ahead, and the position of other aircraft in the area picked up from ADS-B.</p>
+            <p>The pilot can zoom in and out, switch between different views (top-down map, route plan, approach view for landing), and overlay different information layers. It's essentially Google Maps for the sky, but updated every fraction of a second.</p>
+            
+            <h4>3. The Engine and System Display</h4>
+            <p>In the middle, between the two pilots, is the engine and crew alerting display. This shows engine temperatures, pressures, fuel flow, and the status of every major aircraft system. When something goes wrong, this display lights up.</p>
+            <p>And it does more than just alert. When a fault appears, the display walks the pilots through the exact checklist they need to follow to handle it. As they flip switches and conditions change, the checklist updates itself in real time. The aircraft is, in a very real sense, talking the pilots through its own malfunction.</p>
+            
+            <h4>4. The Flexible Screen</h4>
+            <p>The last main screen is the multi-function display. This one is configurable. The pilots can show approach charts on it, performance calculations, weather updates, or any number of other things depending on what they need at that moment. It's the cockpit's spare slot.</p>
+            
+            <h4>5. Why Multiple Screens</h4>
+            <p>The obvious question is, why not just one giant screen? The answer is redundancy. Every screen is fed by its own computer, with its own data feeds. If one screen fails, the information that was on it can instantly be moved to a neighbouring screen at the push of a button. The pilots never lose vital information just because one piece of hardware died.</p>
+            <p>This is the silent theme of every modern aircraft. Nothing is trusted alone. Every critical component has a twin, a backup, a fallback path. The architecture assumes any single thing can break at any moment, and is built to keep flying when it does.</p>
+          </div>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="part">
+  <div class="container">
+    <div class="part-header">
+      <div class="part-numeral">IV</div>
+      <h2 class="part-title">A Flight, From Parked to Parked</h2>
+    </div>
+
+    <article class="equation-block reveal" id="state-machine">
+      <div class="equation-name">The Seven Phases</div>
+      <h3 class="equation-title">The Seven Phases of a Commercial Flight</h3>
+      <p class="equation-subtitle">How a 200-ton aluminium tube goes from parked at Melbourne to parked at Sydney, in seven choreographed handoffs.</p>
+      
+      <div class="equation-body">
+        <p class="lead">Every commercial flight you've ever been on follows the same seven-phase sequence. The cockpit talks to a different air traffic controller in each phase. Each handoff has a specific radio call. Each phase has its own priorities and its own potential failure modes.</p>
+        <p>What follows is the choreography behind every flight you've taken. It's the same whether you're flying Melbourne to Sydney, London to New York, or Tokyo to Auckland. The names of the radio frequencies change. The sequence does not.</p>
+
+        <div class="state-step">
+          <h4>Phase 1: Waking the Aircraft Up</h4>
+          <p>Two hours before your boarding call, the pilots arrive at a completely dead aeroplane. No power, no lights, no sound. The first job is to bring it back to life.</p>
+          <p>They start by switching on the aircraft's batteries, then firing up a small jet engine in the tail called the auxiliary power unit. This engine doesn't push the aircraft forward. Its only job is to generate electricity and produce high-pressure air for the main engines later. With the auxiliary power unit running, the cockpit screens light up and the cabin air conditioning kicks in.</p>
+          <p>Then comes a strange ritual called inertial alignment. The aircraft's navigation system needs to figure out exactly where it is and which way is north. It does this by sitting completely still for up to 10 minutes, sensing the rotation of the Earth beneath it. Yes, really. The system feels the planet rotating under it and uses that to orient itself in space. By the time alignment is done, the pilots have entered the route into the flight computer, the weight and balance is calculated, and the aircraft knows precisely where it is on Earth.</p>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 2: Getting Permission to Fly</h4>
+          <p class="state-quote">"Melbourne Delivery, Qantas 413, IFR to Sydney, Information Bravo, request clearance."</p>
+          <p>Before an aircraft moves an inch, it needs explicit permission from air traffic control. This first radio call asks for that permission. The reply is a structured set of instructions covering where you're allowed to go, how high you can climb, which radio frequency to use next, and a unique 4-digit code that will identify your aircraft on the controllers' radar screens.</p>
+          <p>Pilots remember this list using the word CRAFT, where each letter is one piece of information they need to write down.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Letter</th>
+                <th>What It Means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>C</strong>learance Limit</td>
+                <td>Where you're allowed to fly to. Usually the destination airport.</td>
+              </tr>
+              <tr>
+                <td><strong>R</strong>oute</td>
+                <td>The specific path through the sky you must follow.</td>
+              </tr>
+              <tr>
+                <td><strong>A</strong>ltitudes</td>
+                <td>How high you can climb initially, with further altitudes given later.</td>
+              </tr>
+              <tr>
+                <td><strong>F</strong>requency</td>
+                <td>The next radio channel to switch to after takeoff.</td>
+              </tr>
+              <tr>
+                <td><strong>T</strong>ransponder</td>
+                <td>A unique 4-digit code so controllers can identify you on radar.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 3: Pushing Back and Starting the Engines</h4>
+          <p class="state-quote">"Qantas 413, push and start approved, face South, taxi holding point Runway 16 via Alpha."</p>
+          <p>Here's something most passengers don't know. Commercial airliners can't reverse. There's no equivalent of a car's reverse gear. So to get away from the gate, a small tractor called a tug attaches to the nose wheel and physically shoves the aircraft backwards into the taxiway.</p>
+          <p>While being pushed back, the pilots start the main engines. They use that high-pressure air from the auxiliary power unit to spin the engine's compressors up to speed, then introduce fuel and ignite it. The engines come to life with a deep whoosh that you can hear from your seat. The tug detaches, and the aircraft taxis under its own power toward the runway, following painted yellow lines on the ground exactly like a road network.</p>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 4: Cleared for Takeoff</h4>
+          <p class="state-quote">"Qantas 413, wind 170 at 12 knots, Runway 16, cleared for takeoff."</p>
+          <p>The aircraft lines up on the runway. The pilot pushes the throttles forward. The engines roar to full power. The aircraft starts accelerating down the asphalt.</p>
+          <p>During the takeoff roll, the pilot is mentally tracking three critical speeds that have been calculated specifically for this flight, this weight, this temperature, this runway length. They're called the V-speeds, and they tell the pilot when the takeoff can no longer be safely abandoned.</p>
+          <ul>
+            <li><strong>V<sub>1</sub> is the decision speed.</strong> Up to this speed, if anything goes wrong, the pilot can still slam on the brakes and stop on the remaining runway. Past this speed, that's no longer possible. The aircraft is now committed. Even if an engine fails, the takeoff continues and the problem gets dealt with in the air.</li>
+            <li><strong>V<sub>R</sub> is the rotation speed.</strong> This is when the pilot pulls back on the control column. The nose lifts up, the wings tilt into a higher angle, and the aircraft starts generating enough lift to leave the ground.</li>
+            <li><strong>V<sub>2</sub> is the safety speed.</strong> This is the minimum speed the aircraft can fly safely if one engine has failed during takeoff. The climb after rotation is flown at this speed until everything is checked and stable.</li>
+          </ul>
+          <p>Within seconds of lifting off, the pilot raises the landing gear (you can hear the whirring under the floor as the wheels fold up into the fuselage) and the aircraft starts its climb.</p>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 5: Climbing to Cruise</h4>
+          <p class="state-quote">"Melbourne Centre, Qantas 413, passing Flight Level 180 climbing Flight Level 340."</p>
+          <p>As the aircraft climbs, it's handed off to a series of controllers covering progressively larger areas. Tower hands you off to Departure. Departure hands you off to regional Centre. Eventually you're at cruising altitude, typically somewhere between 33,000 and 41,000 feet, and the aircraft settles into the long quiet middle phase of the flight.</p>
+          <p>Up here is one of the more terrifying ideas in aviation, with one of the best names. It's called Coffin Corner.</p>
+          <p>At cruising altitude, the air is incredibly thin. The wings have to move much faster through this thin air to generate enough lift, so the aircraft cruises at around 80 percent of the speed of sound. But here's the trap. If you slow down even a little, the wings can't generate enough lift and the aircraft stalls and falls out of the sky. If you speed up even a little, the air over the wings goes supersonic and creates shockwaves that destroy the lift, also causing the aircraft to fall out of the sky.</p>
+          <p>The safe speed window at cruise altitude can be as narrow as 30 knots wide. Too slow, you stall. Too fast, you stall. The flight computers manage thrust constantly to keep the aircraft threaded through this narrow window. Coffin Corner is one of those quiet truths about air travel. The aircraft you're sitting in is, for hours at a time, balanced on a knife's edge of physics.</p>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 6: Descending Toward the Destination</h4>
+          <p class="state-quote">"Sydney Approach, Qantas 413, descending via the MARUB 6 arrival, Information Delta."</p>
+          <p>Coming down from cruise altitude isn't just a matter of pointing the nose down. There's a strict rule pilots use called the 3-to-1 rule. It takes roughly 3 nautical miles of forward travel to safely lose 1,000 feet of altitude.</p>
+          <p>So if you're cruising at 30,000 feet, you need to start descending about 90 nautical miles before the airport. Start too late and the aircraft is too high, too fast, and has to use airbrakes or even circle to lose altitude. Start too early and you waste fuel cruising low for longer than necessary.</p>
+          <p>Approach control then funnels the aircraft into a queue with all the other inbound traffic. They issue turn instructions and speed adjustments to space everyone evenly along the final approach path. By the time you're 10 minutes from the runway, you're locked onto those invisible radio beams from earlier, the localiser and glideslope, descending in a perfect 3 degree slope toward touchdown.</p>
+        </div>
+
+        <div class="state-step">
+          <h4>Phase 7: Touchdown and Parking</h4>
+          <p class="state-quote">"Sydney Tower, Qantas 413, established Runway 34R."</p>
+          <p>The final few seconds before touchdown are called the flare. The pilot eases the nose up just slightly so the main wheels touch down first, gently, before the nose wheel settles. If you've ever heard a satisfying chirp of tyres on tarmac, that's a perfect flare.</p>
+          <p>The moment the wheels touch, the priority is to get rid of speed. Three things happen at once. Panels called spoilers pop up on top of the wings, destroying lift and slamming the aircraft's weight onto the wheels. The brakes engage automatically at a preset deceleration rate. And the pilot pulls the throttles into reverse, redirecting engine exhaust forward to create backward thrust.</p>
+          <p>That tremendous roar you hear at landing is reverse thrust, helping the brakes slow the aircraft down. Within about 30 seconds, the aircraft is at taxi speed and turns off the runway onto a taxiway.</p>
+          <p>The final radio call is to Ground Control for instructions to the gate. The aircraft taxis in slowly, the nose wheel comes to a stop on a precisely painted line, the parking brake is set, the engines are shut down with the fuel cutoff switches, and ground crew slide rubber chocks against the tyres. The seven phases are complete. The aircraft is parked, exactly as it was two hours before you boarded, but now in a different city.</p>
+        </div>
+
+      </div>
+    </article>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-line">The Sky, Explained</div>
+    <div class="muted">A curious person's guide to flight</div>
+    <div class="muted">&copy; 2026 &middot; Aaqhil Hussain</div>
+  </div>
+</footer>
+
+<a href="/" class="back-to-home" aria-label="Back to home"><span class="arrow">&uarr;</span> Home</a>
+<a href="#index" class="back-to-index" id="backToIndex">&uarr; Index</a>
+
+<script>
+// Reveal observer with fallback: any element already in viewport on page load
+// is marked visible immediately so animations never accidentally hide content
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight && r.bottom > 0) {
+    el.classList.add('visible');
+  } else {
+    observer.observe(el);
+  }
+});
+
+// Floating Index Pill Tracking Logic
+const backToIndex = document.getElementById('backToIndex');
+const indexSection = document.getElementById('index');
+window.addEventListener('scroll', () => {
+  if (!indexSection || !backToIndex) return;
+  if (indexSection.getBoundingClientRect().bottom < 0) {
+    backToIndex.classList.add('visible');
+  } else {
+    backToIndex.classList.remove('visible');
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
