@@ -10,6 +10,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+   .hero-eyebrow {
+  /* ... keep your existing properties ... */
+  opacity: 0;
+  animation: fadeUp 1.2s ease 0.2s forwards;
+}
+
+.hero-quote {
+  /* ... keep your existing properties ... */
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.5s forwards;
+}
+
+.hero-attribution {
+  /* ... keep your existing properties ... */
+  opacity: 0;
+  animation: fadeUp 1.4s ease 0.9s forwards;
+}
+
+.hero-signature {
+  /* ... keep your existing properties ... */
+  opacity: 0;
+  animation: fadeIn 2s ease 1.2s forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 /* ============================================================
    Tokens & Variables
    ============================================================ */
